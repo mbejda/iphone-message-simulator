@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mbejda/iphone-message-simulator.github.io"
+    "url": "https://github.com/mbejda/iphone-message-simulator"
   },
   "description": "Simulates sending and receiving text messages on Iphone",
   "dependencies": {
