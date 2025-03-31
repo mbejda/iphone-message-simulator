@@ -1,0 +1,74 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:  Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
+  background-color: #f7f8fc;
+}
+
+/* iOS-like scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Override default focus styles */
+button:focus, input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.5);
+}
+
+button {
+  cursor: pointer;
+}
+
+/* iOS-specific styles */
+@supports (-webkit-touch-callout: none) {
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+}
+
+
+$iphone-blue: #007AFF;
+
+a {
+  color: $iphone-blue;
+  text-decoration: none;
+
+  &:hover {
+    color: darken($iphone-blue, 10%);
+  }
+
+  &:active {
+    color: lighten($iphone-blue, 10%);
+  }
+
+  &:visited {
+    color: darken($iphone-blue, 20%);
+  }
+
+  &:focus {
+    outline: 2px solid $iphone-blue;
+    outline-offset: 2px;
+  }
+}

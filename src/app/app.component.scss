@@ -1,0 +1,86 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f7f8fc;
+}
+
+.app-header {
+  text-align: center;
+  padding: 20px 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  h1 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 900;
+  }
+
+  p {
+    margin: 8px 0 0;
+    font-size: 28px;
+  }
+}
+i {
+  font-size:12px;
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+
+    @media (min-width: 992px) {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 30px;
+
+      app-iphone {
+        flex: 1;
+      }
+
+      app-message-builder {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.app-footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #ffffff;
+  border-top: 1px solid #eaeaea;
+
+  p {
+    margin: 0;
+    color: #888;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 15px;
+
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .app-content {
+    padding: 10px;
+  }
+}

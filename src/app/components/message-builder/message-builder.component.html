@@ -1,0 +1,101 @@
+<div class="message-builder-container">
+  <div class="message-builder-panel expanded">
+    <h3 class="builder-title">Message Builder</h3>
+    
+    <div class="contact-name-field">
+      <label for="contactName">Contact Name: <span class="char-count">{{ contactName.length }}/{{ MAX_CONTACT_NAME_LENGTH }}</span></label>
+      <input type="text" id="contactName" [(ngModel)]="contactName" (ngModelChange)="updateContactName()" placeholder="Friend" maxlength="{{ MAX_CONTACT_NAME_LENGTH }}">
+    </div>
+    
+    <div class="message-form">
+      <h4>Add New Message</h4>
+      
+      <div class="form-group">
+        <label for="messageText">Message Text: <span class="char-count">{{ newMessage.text.length }}/{{ MAX_MESSAGE_LENGTH }}</span></label>
+        <textarea id="messageText" [(ngModel)]="newMessage.text" placeholder="Type your message here..." maxlength="{{ MAX_MESSAGE_LENGTH }}"></textarea>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="messageType">Message Type:</label>
+          <select id="messageType" [(ngModel)]="newMessage.isReceived">
+            <option [ngValue]="true">Received (from friend)</option>
+            <option [ngValue]="false">Sent (from you)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="messageDelay">Delay Before (ms):</label>
+          <input type="number" id="messageDelay" [(ngModel)]="newMessage.delayBefore" min="0" step="500" placeholder="1000">
+        </div>
+      </div>
+      
+      <div class="form-group typing-indicator-option" *ngIf="newMessage.isReceived">
+        <label for="showTypingIndicator">
+          <input type="checkbox" id="showTypingIndicator" [(ngModel)]="newMessage.showTypingIndicator">
+          Show typing indicator before message
+        </label>
+      </div>
+      
+      <div class="form-row status-options" *ngIf="!newMessage.isReceived">
+        <div class="form-group">
+          <label for="showDelivered">
+            <input type="checkbox" id="showDelivered" [(ngModel)]="newMessage.showDelivered">
+            Show "Delivered" status
+          </label>
+        </div>
+        
+        <div class="form-group">
+          <label for="showRead">
+            <input type="checkbox" id="showRead" [(ngModel)]="newMessage.showRead">
+            Show "Read" status
+          </label>
+        </div>
+      </div>
+      
+      <button class="add-message-button" (click)="addMessage()" [disabled]="!newMessage.text.trim()">
+        Add Message
+      </button>
+    </div>
+    
+    <div class="message-sequence" *ngIf="messages.length > 0">
+      <h4>Message Sequence</h4>
+      
+      <div class="sequence-list">
+        <div class="sequence-item" *ngFor="let message of messages; let i = index">
+          <div class="message-preview">
+            <span class="message-type" [ngClass]="{'received': message.isReceived, 'sent': !message.isReceived}">
+              {{ message.isReceived ? 'Received' : 'Sent' }}
+            </span>
+            <span class="message-text">{{ message.text }}</span>
+            <span class="message-details">
+              <span *ngIf="message.isReceived && message.showTypingIndicator" class="typing-icon">⌨️</span>
+              <span *ngIf="!message.isReceived && message.showDelivered" class="status-icon">✓ Delivered</span>
+              <span *ngIf="!message.isReceived && message.showRead" class="status-icon">✓✓ Read</span>
+              {{ message.delayBefore }}ms delay
+            </span>
+          </div>
+          
+          <div class="sequence-actions">
+            <button (click)="moveUp(i)" [disabled]="i === 0" title="Move Up">▲</button>
+            <button (click)="moveDown(i)" [disabled]="i === messages.length - 1" title="Move Down">▼</button>
+            <button (click)="removeMessage(i)" title="Remove">✕</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="sequence-actions">
+        <div class="loop-mode-toggle">
+          <label for="loopModeToggle">
+            <input type="checkbox" id="loopModeToggle" [(ngModel)]="isLoopMode" (change)="toggleLoopMode()">
+            Loop Mode {{ isLoopMode ? 'On' : 'Off' }}
+          </label>
+        </div>
+        <button class="play-button" (click)="playSequence()" [disabled]="isPlaying">
+          {{ isPlaying ? 'Playing...' : 'Play Sequence' }}
+        </button>
+        <button class="clear-button" (click)="clearSequence()" [disabled]="isPlaying">Clear All</button>
+      </div>
+    </div>
+  </div>
+</div>
